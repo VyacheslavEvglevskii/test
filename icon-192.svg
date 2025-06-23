@@ -1,0 +1,29 @@
+<svg width="192" height="192" viewBox="0 0 192 192" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2563eb;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1d4ed8;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Фон -->
+  <rect width="192" height="192" rx="32" fill="url(#grad)"/>
+  
+  <!-- Коробка -->
+  <g transform="translate(48,48)">
+    <!-- Верхняя часть коробки -->
+    <path d="M8 32 L48 16 L88 32 L88 48 L48 32 L8 48 Z" fill="#ffffff" opacity="0.9"/>
+    <!-- Левая сторона -->
+    <path d="M8 48 L8 80 L48 96 L48 64 Z" fill="#ffffff" opacity="0.7"/>
+    <!-- Правая сторона -->
+    <path d="M48 64 L48 96 L88 80 L88 48 Z" fill="#ffffff" opacity="0.8"/>
+    
+    <!-- Детали упаковки -->
+    <circle cx="28" cy="40" r="3" fill="#fbbf24"/>
+    <circle cx="68" cy="40" r="3" fill="#fbbf24"/>
+    <rect x="44" y="70" width="8" height="20" fill="#fbbf24" opacity="0.8"/>
+  </g>
+  
+  <!-- Текст -->
+  <text x="96" y="160" text-anchor="middle" fill="white" font-family="Arial" font-size="14" font-weight="bold">УЧЁТ</text>
+</svg> 

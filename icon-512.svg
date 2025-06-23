@@ -1,0 +1,40 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad512" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2563eb;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1d4ed8;stop-opacity:1" />
+    </linearGradient>
+    <filter id="shadow">
+      <feDropShadow dx="4" dy="4" stdDeviation="8" flood-color="#000000" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+  
+  <!-- Фон -->
+  <rect width="512" height="512" rx="80" fill="url(#grad512)"/>
+  
+  <!-- Коробка -->
+  <g transform="translate(128,128)">
+    <!-- Тень коробки -->
+    <g filter="url(#shadow)">
+      <!-- Верхняя часть коробки -->
+      <path d="M20 80 L128 40 L236 80 L236 120 L128 80 L20 120 Z" fill="#ffffff" opacity="0.95"/>
+      <!-- Левая сторона -->
+      <path d="M20 120 L20 200 L128 240 L128 160 Z" fill="#ffffff" opacity="0.75"/>
+      <!-- Правая сторона -->
+      <path d="M128 160 L128 240 L236 200 L236 120 Z" fill="#ffffff" opacity="0.85"/>
+    </g>
+    
+    <!-- Детали упаковки -->
+    <circle cx="75" cy="100" r="8" fill="#fbbf24"/>
+    <circle cx="181" cy="100" r="8" fill="#fbbf24"/>
+    <rect x="120" y="180" width="16" height="50" rx="4" fill="#fbbf24" opacity="0.9"/>
+    
+    <!-- Дополнительные элементы -->
+    <rect x="40" y="140" width="40" height="6" rx="3" fill="#34d399" opacity="0.8"/>
+    <rect x="176" y="140" width="40" height="6" rx="3" fill="#34d399" opacity="0.8"/>
+  </g>
+  
+  <!-- Текст -->
+  <text x="256" y="420" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="36" font-weight="bold">УЧЁТ</text>
+  <text x="256" y="460" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="24" opacity="0.9">УПАКОВКИ</text>
+</svg> 

@@ -1,0 +1,75 @@
+{
+  "name": "Учёт упаковки",
+  "short_name": "PackControl",
+  "description": "Система учёта упаковки и контроля производительности с поддержкой офлайн режима",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "orientation": "any",
+  "theme_color": "#2563eb",
+  "background_color": "#f1f5f9",
+  "scope": "./",
+  "lang": "ru",
+  "categories": ["productivity", "business"],
+  "display_override": ["window-controls-overlay", "standalone"],
+  "launch_handler": {
+    "client_mode": "navigate-existing"
+  },
+  "shortcuts": [
+    {
+      "name": "Быстрая упаковка",
+      "short_name": "Упаковка",
+      "description": "Быстрый переход к форме упаковки",
+      "url": "./index.html?tab=app",
+      "icons": [
+        {
+          "src": "icon-192.svg",
+          "sizes": "192x192",
+          "type": "image/svg+xml"
+        }
+      ]
+    },
+    {
+      "name": "Моя зарплата",
+      "short_name": "Зарплата",
+      "description": "Просмотр зарплаты и статистики",
+      "url": "./index.html?tab=mySalary",
+      "icons": [
+        {
+          "src": "icon-192.svg", 
+          "sizes": "192x192",
+          "type": "image/svg+xml"
+        }
+      ]
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "icon-512.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "form_factor": "wide",
+      "label": "Главный экран PackControl"
+    }
+  ],
+  "icons": [
+    {
+      "src": "icon-192.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.svg",
+      "sizes": "512x512", 
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "edge_side_panel": {
+    "preferred_width": 400
+  },
+  "handle_links": "preferred",
+  "id": "packcontrol-app",
+  "prefer_related_applications": false,
+  "related_applications": []
+} 
