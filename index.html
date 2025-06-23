@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
   <!-- Дополнительные мета-теги для мобильных -->
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -19,6 +19,27 @@
   <title>📦 Учёт упаковки</title>
   <style>
   /* ===== Основы ===== */
+
+/* Глобальное отключение зума */
+* {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Разрешаем выделение для полей ввода */
+input, textarea, select {
+  -webkit-user-select: text;
+  -khtml-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
 body {
   margin: 0;
   padding: 72px 12px 12px;
@@ -30,6 +51,14 @@ body {
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
   overscroll-behavior: none;
+  /* Предотвращение подпрыгивания */
+  overflow-x: hidden;
+  position: relative;
+  /* Дополнительная защита от зума */
+  zoom: 1;
+  -ms-zoom: 1;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
 }
 
 /* === МОБИЛЬНЫЕ ОПТИМИЗАЦИИ === */
@@ -250,6 +279,18 @@ h2 {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
+/* Плавные переходы для контейнеров вкладок */
+#profileContainer,
+#appContainer, 
+#statsContainer,
+#adminContainer,
+#mySalaryContainer,
+#ratesContainer {
+  will-change: opacity, transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
 label {
   display: block;
   font-weight: 600;
@@ -262,7 +303,7 @@ label {
 input, select, textarea {
   width: 100%;
   padding: 12px;
-  font-size: 15px;
+  font-size: 16px; /* 16px предотвращает зум на iOS */
   border: 1px solid #d1d5db;
   border-radius: 10px;
   background: #f9fafb;
@@ -270,6 +311,10 @@ input, select, textarea {
   margin-bottom: 16px;
   box-sizing: border-box;
   transition: border 0.2s ease, box-shadow 0.2s ease;
+  /* Предотвращение зума */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
 
 input:focus, select:focus, textarea:focus {
@@ -3235,8 +3280,7 @@ async function loadShiftStats() {
           const normsTotal = emp.opsTotal || 0;
           const normsPercent = normsTotal > 0 ? Math.round((normsMet / normsTotal) * 100) : 0;
           
-          // Отладка - логируем данные о нормах
-          console.log(`${emp.name}: opsMet=${normsMet}, opsTotal=${normsTotal}, percent=${normsPercent}%`);
+
           
           // Определение иконки для норм
           let normIcon = "—";
@@ -3272,8 +3316,7 @@ async function loadShiftStats() {
           const normsTotal = emp.opsTotal || 0;
           const normsPercent = normsTotal > 0 ? Math.round((normsMet / normsTotal) * 100) : 0;
           
-          // Отладка - логируем данные о нормах
-          console.log(`${emp.name} (аутсорсинг): opsMet=${normsMet}, opsTotal=${normsTotal}, percent=${normsPercent}%`);
+
           
           // Определение иконки для норм
           let normIcon = "—";
@@ -3940,23 +3983,22 @@ async function checkUserStructure() {
     // 🔐 Блокировка, если профиль не заполнен (только для обычных пользователей)
     if (currentUserRole !== "admin" && tabName !== "profile" && !requireProfile()) return;
 
-    // Скрываем все контейнеры
-    document.getElementById("profileContainer").style.display = "none";
-    document.getElementById("appContainer").style.display = "none";
-    document.getElementById("statsContainer").style.display = "none";
-    document.getElementById("adminContainer").style.display = "none";
-    document.getElementById("mySalaryContainer").style.display = "none";
-    document.getElementById("ratesContainer").style.display = "none";
+    // Получаем все контейнеры
+    const containers = [
+      document.getElementById("profileContainer"),
+      document.getElementById("appContainer"),
+      document.getElementById("statsContainer"),
+      document.getElementById("adminContainer"),
+      document.getElementById("mySalaryContainer"),
+      document.getElementById("ratesContainer")
+    ];
 
-    // Удаляем fullscreen от appContainer, если был ранее
-    document.getElementById("appContainer").classList.remove("fullscreen");
+    // Находим текущий активный контейнер
+    const currentContainer = containers.find(container => 
+      container && container.style.display !== "none"
+    );
 
-    // Деактивируем все вкладки навигации
-    document.querySelectorAll('.top-nav button').forEach(btn => {
-      btn.classList.remove('active');
-    });
-
-    // Активируем нужную вкладку
+    // Получаем целевой контейнер
     let targetContainer;
     switch (tabName) {
       case "profile":
@@ -3979,25 +4021,78 @@ async function checkUserStructure() {
         break;
     }
 
-    if (targetContainer) {
-      targetContainer.style.display = "block";
-      targetContainer.classList.add('fade-in');
-      
-      // Анимируем появление контента
-      setTimeout(() => {
-        targetContainer.querySelectorAll('.container, .stat-card').forEach((element, index) => {
-          setTimeout(() => {
-            animateIn(element);
-          }, index * 50);
-        });
-      }, 50);
+    if (!targetContainer || targetContainer === currentContainer) return;
+
+    // ПЛАВНЫЙ ПЕРЕХОД БЕЗ ПОДПРЫГИВАНИЯ
+    // 1. Фиксируем текущую высоту body
+    const currentHeight = document.body.scrollHeight;
+    document.body.style.minHeight = currentHeight + 'px';
+
+    // 2. Плавно скрываем текущий контейнер
+    if (currentContainer) {
+      currentContainer.style.opacity = '0';
+      currentContainer.style.transform = 'translateY(-10px)';
+      currentContainer.style.transition = 'opacity 0.15s ease, transform 0.15s ease';
     }
+
+    // 3. Через короткий промежуток показываем новый контейнер
+    setTimeout(() => {
+      // Скрываем все контейнеры
+      containers.forEach(container => {
+        if (container) {
+          container.style.display = "none";
+          container.style.opacity = '';
+          container.style.transform = '';
+          container.style.transition = '';
+        }
+      });
+
+      // Удаляем fullscreen от appContainer, если был ранее
+      document.getElementById("appContainer").classList.remove("fullscreen");
+
+      // Показываем целевой контейнер
+      if (targetContainer) {
+        targetContainer.style.display = "block";
+        targetContainer.style.opacity = '0';
+        targetContainer.style.transform = 'translateY(10px)';
+        
+        // Принудительный reflow для корректной анимации
+        targetContainer.offsetHeight;
+        
+        // Анимируем появление
+        targetContainer.style.transition = 'opacity 0.2s ease, transform 0.2s ease';
+        targetContainer.style.opacity = '1';
+        targetContainer.style.transform = 'translateY(0)';
+        
+        // Убираем фиксированную высоту через небольшую задержку
+        setTimeout(() => {
+          document.body.style.minHeight = '';
+          targetContainer.style.transition = '';
+        }, 250);
+        
+        // Анимируем появление внутренних элементов
+        setTimeout(() => {
+          targetContainer.querySelectorAll('.container, .stat-card').forEach((element, index) => {
+            setTimeout(() => {
+              animateIn(element);
+            }, index * 30);
+          });
+        }, 100);
+      }
+    }, 150);
+
+    // Деактивируем все вкладки навигации
+    document.querySelectorAll('.top-nav button').forEach(btn => {
+      btn.classList.remove('active');
+    });
     
     // Активируем соответствующую кнопку навигации
     const navButtons = {
       'profile': 0,
       'app': 1, 
-      'mySalary': 2,
+      'stats': 2,
+      'rates': 3,
+      'mySalary': 4,
       'admin': 3
     };
     
