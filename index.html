@@ -609,7 +609,8 @@ button.success:hover {
   transform: translateX(-50%) translateY(0);
 }
 
-/* Свайп индикаторы */
+/* Свайп индикаторы (отключены) */
+/*
 .swipe-indicator {
   position: fixed;
   top: 50%;
@@ -637,6 +638,7 @@ button.success:hover {
 .swipe-indicator.show {
   opacity: 1;
 }
+*/
 
 /* Мобильные оптимизации навигации */
 @media (max-width: 600px) {
@@ -1039,8 +1041,9 @@ button.success:hover {
 /* === СТИЛИ АДМИН-ПАНЕЛИ === */
 .admin-nav-btn {
   padding: 8px 16px;
-  border: 2px solid #e5e7eb;
-  background: white;
+  border: 2px solid #3b82f6;
+  background: #3b82f6;
+  color: white;
   border-radius: 8px;
   cursor: pointer;
   font-size: 14px;
@@ -1049,14 +1052,15 @@ button.success:hover {
 }
 
 .admin-nav-btn:hover {
-  background: #f3f4f6;
-  border-color: #d1d5db;
+  background: #2563eb;
+  border-color: #2563eb;
 }
 
 .admin-nav-btn.active {
-  background: #3b82f6;
+  background: #1d4ed8;
   color: white;
-  border-color: #3b82f6;
+  border-color: #1d4ed8;
+  font-weight: 600;
 }
 
 .admin-section {
@@ -1096,6 +1100,27 @@ button.success:hover {
   background: #dc2626;
 }
 
+/* Специальные стили для кнопок выхода */
+#logoutBtn,
+button[onclick*="handleLogout"] {
+  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%) !important;
+  color: white !important;
+  border: none !important;
+  cursor: pointer !important;
+  pointer-events: auto !important;
+  display: inline-block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  position: relative !important;
+  z-index: 1000 !important;
+}
+
+#logoutBtn:hover,
+button[onclick*="handleLogout"]:hover {
+  background: linear-gradient(135deg, #b91c1c 0%, #991b1b 100%) !important;
+  transform: translateY(-1px);
+}
+
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
@@ -1103,15 +1128,17 @@ button.success:hover {
 
 @media (max-width: 600px) {
   body {
-    padding: 48px 2px 2px;
+    padding: 48px 2px 80px;
     font-size: 15px;
+    overflow-x: hidden;
   }
   .container, .block, #editModal, #adminContainer, #mySalaryContainer, #ratesContainer, #profileContainer {
-    padding: 6px 2px;
+    padding: 12px 8px;
     border-radius: 8px;
     max-width: 100vw;
     box-shadow: 0 1px 4px rgba(0,0,0,0.06);
     margin: 6px 0;
+    min-height: auto;
   }
   h2, .block-title {
     font-size: 17px;
@@ -1131,7 +1158,9 @@ button.success:hover {
     font-size: 14px;
     min-height: 38px;
     border-radius: 8px;
-    padding: 8px 0;
+    padding: 8px 12px;
+    margin: 4px 0;
+    cursor: pointer;
   }
   .form-row, .block, .list {
     margin-bottom: 6px;
@@ -1197,6 +1226,7 @@ button.success:hover {
     ↓ Потяните для обновления
   </div>
   
+  <!-- Индикаторы свайпа отключены
   <div class="swipe-indicator left" id="swipeLeft">
     ←
   </div>
@@ -1204,14 +1234,15 @@ button.success:hover {
   <div class="swipe-indicator right" id="swipeRight">
     →
   </div>
+  -->
   
-  <nav id="bottomNav" class="top-nav" style="display: none;">
-    <button id="tabProfile" onclick="switchTab('profile')">👤</button>
-    <button id="tabApp" onclick="switchTab('app')" disabled>📋</button>
-    <button id="tabStats" onclick="switchTab('stats')">📈</button>
-    <button id="tabRates" onclick="switchTab('rates')">💰</button>
-    <button id="tabMySalary" onclick="switchTab('mySalary')">💵</button>
-    <button id="tabAdmin" onclick="switchTab('admin')" style="display: none;">🛠️</button>
+      <nav id="bottomNav" class="top-nav" style="display: none;">
+    <button id="tabProfile" onclick="switchTab('profile')" title="Профиль">👤</button>
+    <button id="tabApp" onclick="switchTab('app')" disabled title="Учёт упаковки">📋</button>
+    <button id="tabStats" onclick="switchTab('stats')" title="Статистика">📈</button>
+    <button id="tabRates" onclick="switchTab('rates')" title="Тарифы">💰</button>
+    <button id="tabMySalary" onclick="switchTab('mySalary')" title="Моя зарплата">💵</button>
+    <button id="tabAdmin" onclick="switchTab('admin')" style="display: none;" title="Админ-панель">🛠️</button>
   </nav>
 <div class="container" id="loginContainer">
   <h2>🔐 Вход в систему</h2>
@@ -1223,6 +1254,71 @@ button.success:hover {
 
   <button onclick="handleLogin()" class="login-btn pulse">🔐 Войти</button>
   <div id="loginError"></div>
+  
+  <!-- 🏢 Брендинг компании -->
+  <div style="margin-top: 40px; padding: 24px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 16px; text-align: center; color: white; box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3);">
+    <div style="font-size: 24px; font-weight: bold; margin-bottom: 8px; text-shadow: 0 2px 4px rgba(0,0,0,0.3);">
+      ⚡ Forsal
+    </div>
+    <div style="font-size: 16px; margin-bottom: 12px; opacity: 0.9;">
+      Технологии для человека
+    </div>
+    <div style="font-size: 14px; opacity: 0.8; line-height: 1.4; margin-bottom: 16px;">
+      Доступные, простые и эффективные<br>
+      продукты для жизни в городе и активного отдыха
+    </div>
+    
+    <!-- Статистика компании -->
+    <div style="display: flex; justify-content: space-around; margin: 20px 0; padding: 16px; background: rgba(255,255,255,0.1); border-radius: 12px; backdrop-filter: blur(10px);">
+      <div style="text-align: center;">
+        <div style="font-size: 20px; font-weight: bold;">2015</div>
+        <div style="font-size: 12px; opacity: 0.8;">Год основания</div>
+      </div>
+      <div style="text-align: center;">
+        <div style="font-size: 20px; font-weight: bold;">700+</div>
+        <div style="font-size: 12px; opacity: 0.8;">Контрагентов</div>
+      </div>
+      <div style="text-align: center;">
+        <div style="font-size: 20px; font-weight: bold;">70+</div>
+        <div style="font-size: 12px; opacity: 0.8;">Продуктов</div>
+      </div>
+    </div>
+    
+    <!-- Бренды компании -->
+    <div style="margin: 20px 0;">
+      <div style="font-size: 16px; font-weight: 600; margin-bottom: 16px; opacity: 0.9;">
+        🏷️ Наши бренды
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;">
+        <div style="padding: 12px; background: rgba(255,255,255,0.15); border-radius: 10px; backdrop-filter: blur(5px); border: 1px solid rgba(255,255,255,0.2);">
+          <div style="font-weight: bold; font-size: 14px; margin-bottom: 4px;">👟 SOLEMATE</div>
+          <div style="font-size: 11px; opacity: 0.8; line-height: 1.3;">Уход за обувью и одеждой</div>
+        </div>
+        <div style="padding: 12px; background: rgba(255,255,255,0.15); border-radius: 10px; backdrop-filter: blur(5px); border: 1px solid rgba(255,255,255,0.2);">
+          <div style="font-weight: bold; font-size: 14px; margin-bottom: 4px;">🏠 WELLROOM</div>
+          <div style="font-size: 11px; opacity: 0.8; line-height: 1.3;">Бытовая химия для дома</div>
+        </div>
+        <div style="padding: 12px; background: rgba(255,255,255,0.15); border-radius: 10px; backdrop-filter: blur(5px); border: 1px solid rgba(255,255,255,0.2);">
+          <div style="font-weight: bold; font-size: 14px; margin-bottom: 4px;">🏔️ TREKKO</div>
+          <div style="font-size: 11px; opacity: 0.8; line-height: 1.3;">Для активного отдыха</div>
+        </div>
+        <div style="padding: 12px; background: rgba(255,255,255,0.15); border-radius: 10px; backdrop-filter: blur(5px); border: 1px solid rgba(255,255,255,0.2);">
+          <div style="font-weight: bold; font-size: 14px; margin-bottom: 4px;">🌿 CLEENY</div>
+          <div style="font-size: 11px; opacity: 0.8; line-height: 1.3;">Экологичная химия</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Контакты -->
+    <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.2);">
+      <div style="font-size: 14px; opacity: 0.9; margin-bottom: 8px;">
+        📞 <a href="tel:+74993229675" style="color: white; text-decoration: none;">+7 (499) 322-96-75</a>
+      </div>
+      <div style="font-size: 12px; opacity: 0.7;">
+        © 2024 ООО "Форсайт Лаб" • <a href="https://forsal.ru/" target="_blank" style="color: rgba(255,255,255,0.8); text-decoration: none;">forsal.ru</a>
+      </div>
+    </div>
+  </div>
 </div>
 <div class="container" style="display:none;" id="tabContainer">
 </div>
@@ -1326,7 +1422,7 @@ button.success:hover {
   <div id="totalQtyDisplay" style="margin: 16px 0; font-weight: bold; background: #f0f9ff; padding: 10px; border-radius: 8px;"></div>
   <div id="statsContent"></div>
 </div>
-<div class="container" style="display:none;" id="profileContainer">
+<div class="container" style="display:none; padding-bottom: 120px;" id="profileContainer">
   <h2>👤 Личный профиль</h2>
   <label>Тип смены:
     <select id="shiftType">
@@ -1369,7 +1465,9 @@ button.success:hover {
   <p id="profileHint" style="color:#dc2626; font-size:14px; text-align:center; margin-top:12px;">
   ⚠️ Заполните все поля профиля и нажмите кнопку «Сохранить», чтобы получить доступ к вкладкам системы.
 </p>
-  <button id="logoutBtn" onclick="handleLogout()" class="danger">🚪 Выйти</button>
+  <div style="margin-top: 20px; text-align: center; border-top: 1px solid #e5e7eb; padding-top: 16px;">
+    <button id="logoutBtn" onclick="handleLogout()" class="danger" style="width: auto; padding: 12px 24px; z-index: 10; position: relative;" title="Выйти из приложения">🚪 Выйти из приложения</button>
+  </div>
 </div>
 <div class="container" style="display:none;" id="ratesContainer">
   <h2>💰 Тарифы и нормативы</h2>
@@ -1388,13 +1486,14 @@ button.success:hover {
   <!-- Таблица будет добавлена через JS -->
 </div>
 <!-- 📦 Контейнер: Админ-панель -->
-<div class="container" id="adminContainer" style="display:none;">
+<div class="container" id="adminContainer" style="display:none; padding-bottom: 120px;">
   <h2>🛠️ Панель администратора</h2>
   
   <!-- Навигация по разделам админ-панели -->
   <div style="margin-bottom: 20px; display: flex; flex-wrap: wrap; gap: 8px;">
     <button onclick="showAdminSection('reports')" class="admin-nav-btn active" id="adminNavReports">📊 Основные отчёты</button>
     <button onclick="showAdminSection('analytics')" class="admin-nav-btn" id="adminNavAnalytics">🔍 Аналитика операций</button>
+    <button onclick="showAdminSection('users')" class="admin-nav-btn" id="adminNavUsers">👥 Управление пользователями</button>
   </div>
 
   <!-- Раздел Отчёты (восстановленный оригинальный функционал) -->
@@ -1428,7 +1527,7 @@ button.success:hover {
 
     <!-- 🚪 Кнопка выхода для администратора -->
     <div style="margin-top: 40px; text-align: center; border-top: 1px solid #e5e7eb; padding-top: 20px;">
-      <button onclick="handleLogout()" class="danger" style="background-color: #dc2626; width: auto; padding: 12px 24px;">🚪 Выйти из системы</button>
+      <button onclick="handleLogout()" class="danger" style="background-color: #dc2626; width: auto; padding: 12px 24px; z-index: 10; position: relative; cursor: pointer;" title="Выйти из приложения">🚪 Выйти из приложения</button>
     </div>
   </div>
 
@@ -1463,32 +1562,94 @@ button.success:hover {
 
         </div>
 
-    <!-- Фильтры для детального анализа -->
-    <div style="margin-bottom: 16px; padding: 12px; background: #f1f5f9; border-radius: 6px;">
-      <h5 style="margin: 0 0 12px 0;">🎯 Фильтры анализа</h5>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px;">
-        <div>
-          <label style="font-size: 13px; color: #64748b;">Минимальная эффективность (%):</label>
-          <input type="number" id="minEfficiencyFilter" value="70" min="0" max="100" style="width: 100%;" />
+            <!-- Фильтры для детального анализа -->
+        <div style="margin-bottom: 16px; padding: 12px; background: #f1f5f9; border-radius: 6px;">
+          <h5 style="margin: 0 0 12px 0;">🎯 Фильтры анализа</h5>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px;">
+            <div>
+              <label style="font-size: 13px; color: #64748b;">Минимальная эффективность (%):</label>
+              <input type="number" id="minEfficiencyFilter" value="70" min="0" max="100" style="width: 100%;" />
+            </div>
+            <div>
+              <label style="font-size: 13px; color: #64748b;">Минимум операций для анализа:</label>
+              <input type="number" id="minOperationsFilter" value="10" min="1" style="width: 100%;" />
+            </div>
+            <div>
+              <label style="font-size: 13px; color: #64748b;">Тип операции:</label>
+              <select id="operationTypeFilter" style="width: 100%;">
+                <option value="">Все операции</option>
+              </select>
+            </div>
+            <div>
+              <label style="font-size: 13px; color: #64748b;">Статус сотрудников:</label>
+              <select id="employeeStatusFilter" style="width: 100%;">
+                <option value="">Все сотрудники</option>
+                <option value="Штат">Штат</option>
+                <option value="Аутсорсинг">Аутсорсинг</option>
+              </select>
+            </div>
+          </div>
         </div>
-        <div>
-          <label style="font-size: 13px; color: #64748b;">Минимум операций для анализа:</label>
-          <input type="number" id="minOperationsFilter" value="10" min="1" style="width: 100%;" />
-        </div>
-        <div>
-          <label style="font-size: 13px; color: #64748b;">Тип операции:</label>
-          <select id="operationTypeFilter" style="width: 100%;">
-            <option value="">Все операции</option>
-          </select>
-        </div>
-      </div>
-    </div>
 
     <div id="analyticsResults"></div>
   </div>
 
-
-
+  <!-- Новый раздел: Управление пользователями -->
+  <div id="adminUsers" class="admin-section" style="display: none;">
+    <h3>👥 Управление пользователями</h3>
+    
+    <!-- Создание нового пользователя -->
+    <div style="margin-bottom: 30px; padding: 20px; background: #f8fafc; border-radius: 12px; border-left: 4px solid #059669;">
+      <h4 style="margin: 0 0 16px 0; color: #059669;">➕ Создать нового пользователя</h4>
+      
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; margin-bottom: 16px;">
+        <div>
+          <label style="font-size: 14px; color: #374151; font-weight: 500;">Имя пользователя:</label>
+          <input type="text" id="newUserName" placeholder="Введите имя" style="width: 100%; margin-top: 4px;" />
+        </div>
+        <div>
+          <label style="font-size: 14px; color: #374151; font-weight: 500;">Пароль:</label>
+          <input type="text" id="newUserPassword" placeholder="Введите пароль" style="width: 100%; margin-top: 4px;" />
+        </div>
+        <div>
+          <label style="font-size: 14px; color: #374151; font-weight: 500;">Роль:</label>
+          <select id="newUserRole" style="width: 100%; margin-top: 4px;">
+            <option value="user">Пользователь</option>
+            <option value="admin">Администратор</option>
+          </select>
+        </div>
+      </div>
+      
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 16px;">
+        <div>
+          <label style="font-size: 14px; color: #374151; font-weight: 500;">Статус сотрудника:</label>
+          <select id="newUserStatus" style="width: 100%; margin-top: 4px;">
+            <option value="Штат">Штат</option>
+            <option value="Аутсорсинг">Аутсорсинг</option>
+          </select>
+        </div>
+        <div>
+          <label style="font-size: 14px; color: #374151; font-weight: 500;">Оклад (₽):</label>
+          <input type="number" id="newUserSalary" placeholder="Размер оклада" style="width: 100%; margin-top: 4px;" />
+        </div>
+      </div>
+      
+      <button onclick="createNewUser()" id="createUserBtn" class="admin-btn success" style="margin-top: 8px;">
+        ➕ Создать пользователя
+      </button>
+      
+      <div id="createUserResult" style="margin-top: 12px;"></div>
+    </div>
+    
+    <!-- Список существующих пользователей -->
+    <div style="margin-bottom: 20px;">
+      <h4 style="margin: 0 0 16px 0; color: #374151;">📋 Список пользователей</h4>
+      <button onclick="loadUsersList()" id="loadUsersBtn" class="admin-btn primary" style="margin-bottom: 16px;">
+        🔄 Обновить список
+      </button>
+      <div id="usersListContainer"></div>
+    </div>
+  </div>
 
 </div>
 
@@ -1506,7 +1667,7 @@ button.success:hover {
 <p id="totalQty" style="text-align:center; font-weight:bold; margin-top:16px;"></p>
 </div>
 <script>
-const scriptURL = "https://script.google.com/macros/s/AKfycbyKnHfTq4BdBARRKUC-tm-eYVbiYyTmrGME3o0qo-bpegHpxotsEO9X5w2L4m6p2oEt/exec";
+const scriptURL = "https://script.google.com/macros/s/AKfycbzRMnQ3_G19zMOqz6OkVZNnczYjG3yBfeirFPUv6bbIy-qDSb0TP5jf4uJo_0g3JL9y/exec";
 let todayRecords = [];
 let currentUser = "";
 let currentShift = "";
@@ -1514,6 +1675,7 @@ let currentStatus = "";
  let allRates = [];
 let allVolumes = []; // ← добавь это!
 let currentUserRole = "user"; // ← добавляем сюда
+let isShiftStatsLoaded = false; // Для отслеживания загрузки отчетов
 
 // ===== ФУНКЦИИ АНИМАЦИИ КНОПОК =====
 
@@ -1691,53 +1853,53 @@ if (employeeStatusElement) {
     } else {
       salaryBlock.style.display = "none";
     }
+    
+    // 🔧 ВАЖНО: Повторно привязываем обработчик события после пересоздания HTML
+    attachPayTypeEventHandler(payTypeSelect);
   }
   });
 }
 
-// === ЛОГИКА: Показывать блок оклада только для "Оклад + сделка" ===
-const profilePayTypeElement = document.getElementById("profilePayType");
-if (profilePayTypeElement) {
-  profilePayTypeElement.addEventListener("change", async function() {
+// 🔧 Функция привязки обработчика события для типа оплаты
+function attachPayTypeEventHandler(payTypeElement) {
+  if (!payTypeElement) {
+    console.warn('⚠️ attachPayTypeEventHandler: Элемент payType не найден');
+    return;
+  }
+  
+  console.log('🔧 attachPayTypeEventHandler: Привязываем обработчик события для типа оплаты');
+  
+  // Удаляем старые обработчики (если есть)
+  payTypeElement.removeEventListener("change", payTypeChangeHandler);
+  // Привязываем новый обработчик
+  payTypeElement.addEventListener("change", payTypeChangeHandler);
+  
+  console.log('✅ attachPayTypeEventHandler: Обработчик успешно привязан');
+}
+
+// 🔧 Обработчик события изменения типа оплаты (вынесен в отдельную функцию)
+async function payTypeChangeHandler() {
+  console.log(`🎯 payTypeChangeHandler: Вызван с значением "${this.value}"`);
+  
   const salaryBlock = document.getElementById("salaryBlock");
   const salaryInput = document.getElementById("profileSalary");
+  
   if (this.value === "Оклад + сделка") {
+    console.log(`💰 payTypeChangeHandler: Показываем блок оклада и загружаем сумму`);
     salaryBlock.style.display = "block";
     // Подгружаем оклад с сервера
-    const currentUser = localStorage.getItem("currentUser") || "";
-    console.log(`🔍 Загрузка оклада для пользователя: "${currentUser}"`);
-    
-    try {
-      const res = await fetch(`${scriptURL}?type=getSalary&employee=${encodeURIComponent(currentUser)}`);
-      
-      if (!res.ok) {
-        throw new Error(`HTTP ${res.status}: ${res.statusText}`);
-      }
-      
-      const data = await res.json();
-      console.log(`📊 Ответ сервера:`, data);
-      
-      const salary = data.salary || "";
-      console.log(`💰 Полученный оклад: "${salary}"`);
-      
-      salaryInput.value = salary;
-      localStorage.setItem("profileSalary", salary);
-      
-      if (!salary) {
-        console.warn(`⚠️ Оклад не найден для пользователя "${currentUser}"`);
-      }
-    } catch (err) {
-      console.error(`❌ Ошибка загрузки оклада:`, err);
-      salaryInput.value = "";
-      localStorage.removeItem("profileSalary");
-    }
+    await loadSalaryFromServer();
   } else {
+    console.log(`🚫 payTypeChangeHandler: Скрываем блок оклада и очищаем поле`);
     salaryBlock.style.display = "none";
     salaryInput.value = "";
     localStorage.removeItem("profileSalary");
   }
-  });
 }
+
+// === ЛОГИКА: Показывать блок оклада только для "Оклад + сделка" ===
+const profilePayTypeElement = document.getElementById("profilePayType");
+attachPayTypeEventHandler(profilePayTypeElement);
 
 }); // Закрытие DOMContentLoaded
 
@@ -1745,7 +1907,57 @@ if (profilePayTypeElement) {
 
 function isProfileComplete() {
   const packingModel = document.getElementById("profilePackingModel").value;
-  return currentShift && currentStatus && packingModel;
+  const payType = document.getElementById("profilePayType").value;
+  return currentShift && currentStatus && packingModel && payType;
+}
+
+// 💰 Функция загрузки оклада с сервера
+async function loadSalaryFromServer() {
+  const currentUser = localStorage.getItem("currentUser") || "";
+  const salaryInput = document.getElementById("profileSalary");
+  
+  if (!currentUser) {
+    console.warn('⚠️ loadSalaryFromServer: Пользователь не определен для загрузки оклада');
+    return "";
+  }
+  
+  if (!salaryInput) {
+    console.warn('⚠️ loadSalaryFromServer: Поле ввода оклада не найдено на странице');
+    return "";
+  }
+  
+  try {
+    console.log(`🔍 loadSalaryFromServer: Загрузка оклада для пользователя: "${currentUser}"`);
+    
+    const res = await fetch(`${scriptURL}?type=getSalary&employee=${encodeURIComponent(currentUser)}`);
+    
+    if (!res.ok) {
+      throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+    }
+    
+    const data = await res.json();
+    console.log(`📊 loadSalaryFromServer: Ответ сервера:`, data);
+    
+    const salary = data.salary || "";
+    console.log(`💰 loadSalaryFromServer: Полученный оклад: "${salary}"`);
+    console.log(`🎯 loadSalaryFromServer: Устанавливаем значение в поле ввода`);
+    
+    salaryInput.value = salary;
+    localStorage.setItem("profileSalary", salary);
+    
+    if (!salary) {
+      console.warn(`⚠️ loadSalaryFromServer: Оклад не найден для пользователя "${currentUser}"`);
+    } else {
+      console.log(`✅ loadSalaryFromServer: Оклад успешно загружен и установлен`);
+    }
+    
+    return salary;
+  } catch (err) {
+    console.error(`❌ loadSalaryFromServer: Ошибка загрузки оклада:`, err);
+    salaryInput.value = "";
+    localStorage.removeItem("profileSalary");
+    return "";
+  }
 }
 
 // 🔄 Функция восстановления профиля из localStorage
@@ -1778,6 +1990,12 @@ function restoreProfile() {
   if (salaryBlock) {
     salaryBlock.style.display = (payType === "Оклад + сделка") ? "block" : "none";
   }
+  
+  // 🔄 ВАЖНО: Если тип оплаты "Оклад + сделка", но поле пустое - загружаем оклад
+  if (payType === "Оклад + сделка" && !salary && currentUser) {
+    console.log('🔄 restoreProfile: Обнаружен тип "Оклад + сделка" без оклада, загружаем...');
+    loadSalaryFromServer();
+  }
 
   // Обновляем доступность вкладок
   if (currentUserRole !== "admin") {
@@ -1788,7 +2006,8 @@ function restoreProfile() {
     const tabMySalary = document.getElementById("tabMySalary");
 
     if (hint) hint.style.display = isFilled ? "none" : "block";
-    if (msg) msg.style.display = isFilled ? "block" : "none";
+    // ❌ УБИРАЕМ автоматический показ "Сохранено" при восстановлении
+    if (msg) msg.style.display = "none"; // Всегда скрываем при восстановлении
     if (tabApp) {
       tabApp.disabled = !isFilled;
       tabApp.innerHTML = isFilled ? "📋" : "🔒";
@@ -1825,6 +2044,8 @@ async function saveProfile() {
     setButtonLoading(saveBtn, true);
   }
 
+  try {
+
   const shiftValue = shiftSelect.value;
   const statusValue = statusSelect.value;
   const packingModel = packingModelSelect.value;
@@ -1837,33 +2058,8 @@ async function saveProfile() {
   localStorage.setItem("profilePayType", payType);
 
   // Если выбран "Оклад + сделка", подтягиваем оклад с сервера
-  let salary = "";
   if (payType === "Оклад + сделка") {
-    try {
-      const currentUser = localStorage.getItem("currentUser") || "";
-      console.log(`🔍 saveProfile: Загрузка оклада для "${currentUser}"`);
-      
-      const res = await fetch(`${scriptURL}?type=getSalary&employee=${encodeURIComponent(currentUser)}`);
-      
-      if (!res.ok) {
-        throw new Error(`HTTP ${res.status}: ${res.statusText}`);
-      }
-      
-      const data = await res.json();
-      console.log(`📊 saveProfile: Ответ сервера:`, data);
-      
-      salary = data.salary || "";
-      console.log(`💰 saveProfile: Полученный оклад: "${salary}"`);
-      
-      if (!salary) {
-        console.warn(`⚠️ saveProfile: Оклад не найден для пользователя "${currentUser}"`);
-      }
-    } catch (err) {
-      console.error(`❌ saveProfile: Ошибка загрузки оклада:`, err);
-      salary = "";
-    }
-    salaryInput.value = salary;
-    localStorage.setItem("profileSalary", salary);
+    await loadSalaryFromServer();
     document.getElementById("salaryBlock").style.display = "block";
   } else {
     salaryInput.value = "";
@@ -1908,6 +2104,14 @@ async function saveProfile() {
   if (saveBtn) {
     setButtonSuccess(saveBtn, 1500);
     setTimeout(() => setButtonLoading(saveBtn, false), 1500);
+  }
+  
+  } catch (err) {
+    console.error('❌ Ошибка сохранения профиля:', err);
+    alert('❌ Ошибка при сохранении профиля: ' + err.message);
+    if (saveBtn) {
+      setButtonLoading(saveBtn, false);
+    }
   }
 }
 
@@ -2025,81 +2229,119 @@ async function handleLogin() {
 
 
 function handleLogout() {
-  // 🔄 Сброс состояния
-  currentUser = "";
-  currentUserRole = "user";
-  currentShift = "";
-  currentStatus = "";
+  try {
+    // 🔄 Сброс состояния
+    currentUser = "";
+    currentUserRole = "user";
+    currentShift = "";
+    currentStatus = "";
 
-  localStorage.removeItem("currentUser");
-  localStorage.removeItem("currentUserRole");
+    localStorage.removeItem("currentUser");
+    localStorage.removeItem("currentUserRole");
 
-  // 🔐 Очистка формы входа
-  const loginInput = document.getElementById("login");
-  const passwordInput = document.getElementById("password");
-  loginInput.value = "";
-  passwordInput.value = "";
-  loginInput.focus();
+    // 🔐 Очистка формы входа
+    const loginInput = document.getElementById("login");
+    const passwordInput = document.getElementById("password");
+    if (loginInput) loginInput.value = "";
+    if (passwordInput) passwordInput.value = "";
+    if (loginInput) loginInput.focus();
 
-  // 👤 Очистка профиля
-  document.querySelector('[name="employeeName"]').value = "";
-  document.getElementById("shiftType").value = "";
-  document.getElementById("employeeStatus").value = "";
-  document.getElementById("profileSaved").style.display = "none";
-  document.getElementById("profileHint").style.display = "block";
+    // 👤 Очистка профиля
+    const empNameField = document.querySelector('[name="employeeName"]');
+    const shiftTypeField = document.getElementById("shiftType");
+    const empStatusField = document.getElementById("employeeStatus");
+    const profileSaved = document.getElementById("profileSaved");
+    const profileHint = document.getElementById("profileHint");
+    
+    if (empNameField) empNameField.value = "";
+    if (shiftTypeField) shiftTypeField.value = "";
+    if (empStatusField) empStatusField.value = "";
+    if (profileSaved) profileSaved.style.display = "none";
+    if (profileHint) profileHint.style.display = "block";
 
-  // 🔒 Отключение кнопки учёта
-  const tabApp = document.getElementById("tabApp");
-  tabApp.disabled = true;
-  tabApp.innerHTML = "🔒";
+    // 🔒 Отключение кнопки учёта
+    const tabApp = document.getElementById("tabApp");
+    if (tabApp) {
+      tabApp.disabled = true;
+      tabApp.innerHTML = "🔒";
+    }
 
-  // ❌ Очистка статистики
-  closeStats(); // очищает statsCards, totalWage и statsLogs
+    // ❌ Очистка статистики (безопасно)
+    try {
+      closeStats();
+    } catch (e) {
+      console.log("Не удалось очистить статистику:", e);
+    }
 
-  // 📉 Очистка полей фильтра статистики
-  document.getElementById("operationFilter").value = "";
-  document.getElementById("statsDate").value = "";
+    // 📉 Очистка полей фильтра статистики
+    const operationFilter = document.getElementById("operationFilter");
+    const statsDate = document.getElementById("statsDate");
+    if (operationFilter) operationFilter.value = "";
+    if (statsDate) statsDate.value = "";
 
-  // 💵 Очистка зарплатных данных
-  document.getElementById("mySalaryOutput").innerHTML = "";
-  document.getElementById("totalQty").textContent = "";
-  document.getElementById("salaryStart").value = "";
-  document.getElementById("salaryEnd").value = "";
+    // 💵 Очистка зарплатных данных
+    const mySalaryOutput = document.getElementById("mySalaryOutput");
+    const totalQty = document.getElementById("totalQty");
+    const salaryStart = document.getElementById("salaryStart");
+    const salaryEnd = document.getElementById("salaryEnd");
+    
+    if (mySalaryOutput) mySalaryOutput.innerHTML = "";
+    if (totalQty) totalQty.textContent = "";
+    if (salaryStart) salaryStart.value = "";
+    if (salaryEnd) salaryEnd.value = "";
 
-  // 🧼 Скрытие всех контейнеров
-  const containers = [
-    "loginContainer",
-    "tabContainer",
-    "appContainer",
-    "statsContainer",
-    "profileContainer",
-    "ratesContainer",
-    "adminContainer",
-    "mySalaryContainer"
-  ];
-  containers.forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.style.display = (id === "loginContainer") ? "block" : "none";
-  });
+    // 🧼 Скрытие всех контейнеров
+    const containers = [
+      "loginContainer",
+      "tabContainer", 
+      "appContainer",
+      "statsContainer",
+      "profileContainer",
+      "ratesContainer",
+      "adminContainer",
+      "mySalaryContainer"
+    ];
+    
+    containers.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) {
+        el.style.display = (id === "loginContainer") ? "block" : "none";
+      }
+    });
 
-  // Восстанавливаем видимость всех навигационных кнопок
-  const tabButtons = ["tabProfile", "tabApp", "tabStats", "tabRates", "tabMySalary"];
-  tabButtons.forEach(id => {
-    const btn = document.getElementById(id);
-    if (btn) btn.style.display = "inline-block";
-  });
+    // Восстанавливаем видимость всех навигационных кнопок
+    const tabButtons = ["tabProfile", "tabApp", "tabStats", "tabRates", "tabMySalary", "tabAdmin"];
+    tabButtons.forEach(id => {
+      const btn = document.getElementById(id);
+      if (btn) {
+        btn.style.display = (id === "tabAdmin") ? "none" : "inline-block";
+      }
+    });
 
-  // 🧽 Сброс модальных окон
-  const modal = document.getElementById("editModal");
-  if (modal) modal.style.display = "none";
+    // 🧽 Сброс модальных окон
+    const modal = document.getElementById("editModal");
+    if (modal) modal.style.display = "none";
 
-  // 👇 Скрытие нижнего меню
-  const nav = document.getElementById("bottomNav");
-  nav.style.opacity = "0";
-  setTimeout(() => {
-    nav.style.display = "none";
-    nav.style.opacity = "1";
-  }, 200);
+    // 👇 Скрытие нижнего меню
+    const nav = document.getElementById("bottomNav");
+    if (nav) {
+      nav.style.opacity = "0";
+      setTimeout(() => {
+        nav.style.display = "none";
+        nav.style.opacity = "1";
+      }, 200);
+    }
+    
+    console.log("Выход выполнен успешно");
+    
+  } catch (error) {
+    console.error("Ошибка при выходе:", error);
+    // В любом случае показываем экран входа
+    const loginContainer = document.getElementById("loginContainer");
+    if (loginContainer) {
+      loginContainer.style.display = "block";
+    }
+  }
 }
 
   async function loadTodayRecords() {
@@ -2969,10 +3211,7 @@ window.addEventListener("DOMContentLoaded", async () => {
   }
 
   // ⏱ Подсказка сохранения профиля (только для обычных пользователей)
-  if (currentUserRole !== "admin") {
-    // Просто восстанавливаем профиль из localStorage без сохранения
-    restoreProfile();
-  }
+  // Восстановление профиля происходит в handleLogin(), дублирование убрано
 });
 
 async function loadPackingModels() {
@@ -3911,6 +4150,11 @@ function showAdminSection(sectionName) {
     initAnalyticsDates();
     initOperationTypeFilter();
   }
+  
+  // Инициализация раздела пользователей
+  if (sectionName === 'users') {
+    initUsersSection();
+  }
 }
 
 // Инициализация дат в разделе аналитики
@@ -3947,6 +4191,203 @@ function initOperationTypeFilter() {
     option.textContent = operation;
     select.appendChild(option);
   });
+}
+
+// === ФУНКЦИИ УПРАВЛЕНИЯ ПОЛЬЗОВАТЕЛЯМИ ===
+
+// Инициализация раздела управления пользователями
+function initUsersSection() {
+  // Сбрасываем состояние формы
+  document.getElementById('newUserName').value = '';
+  document.getElementById('newUserPassword').value = '';
+  document.getElementById('newUserRole').value = 'user';
+  document.getElementById('newUserStatus').value = 'Штат';
+  document.getElementById('newUserSalary').value = '';
+  
+  // Очищаем результат предыдущих операций
+  const resultContainer = document.getElementById('createUserResult');
+  if (resultContainer) {
+    resultContainer.innerHTML = '';
+  }
+  
+  // Автоматически загружаем список пользователей
+  loadUsersList();
+}
+
+// Создание нового пользователя
+async function createNewUser() {
+  const btn = document.getElementById('createUserBtn');
+  const resultContainer = document.getElementById('createUserResult');
+  
+  setButtonLoading(btn, true);
+  
+  const name = document.getElementById('newUserName').value.trim();
+  const password = document.getElementById('newUserPassword').value.trim();
+  const role = document.getElementById('newUserRole').value;
+  const status = document.getElementById('newUserStatus').value;
+  const salary = document.getElementById('newUserSalary').value;
+  
+  // Валидация
+  if (!name || !password) {
+    resultContainer.innerHTML = `<div style="color: #dc2626; padding: 12px; background: #fef2f2; border-radius: 6px;">⚠️ Заполните имя пользователя и пароль</div>`;
+    setButtonLoading(btn, false);
+    return;
+  }
+  
+  if (!salary || salary <= 0) {
+    resultContainer.innerHTML = `<div style="color: #dc2626; padding: 12px; background: #fef2f2; border-radius: 6px;">⚠️ Укажите размер оклада</div>`;
+    setButtonLoading(btn, false);
+    return;
+  }
+  
+  try {
+    const params = new URLSearchParams({
+      type: 'createUser',
+      name: name,
+      password: password,
+      role: role,
+      status: status,
+      salary: salary
+    });
+    
+    const res = await fetch(`${scriptURL}?${params.toString()}`);
+    const data = await res.json();
+    
+    if (data.success) {
+      resultContainer.innerHTML = `<div style="color: #059669; padding: 12px; background: #f0fdf4; border-radius: 6px;">✅ ${data.message}</div>`;
+      
+      // Очистка полей формы
+      document.getElementById('newUserName').value = '';
+      document.getElementById('newUserPassword').value = '';
+      document.getElementById('newUserRole').value = 'user';
+      document.getElementById('newUserStatus').value = 'Штат';
+      document.getElementById('newUserSalary').value = '';
+      
+      // Автоматически обновляем список пользователей
+      setTimeout(() => {
+        loadUsersList();
+      }, 1000);
+      
+      setButtonSuccess(btn, 1500);
+    } else {
+      resultContainer.innerHTML = `<div style="color: #dc2626; padding: 12px; background: #fef2f2; border-radius: 6px;">❌ ${data.message}</div>`;
+    }
+    
+  } catch (err) {
+    console.error('Ошибка создания пользователя:', err);
+    resultContainer.innerHTML = `<div style="color: #dc2626; padding: 12px; background: #fef2f2; border-radius: 6px;">❌ Ошибка: ${err.message}</div>`;
+  } finally {
+    setTimeout(() => setButtonLoading(btn, false), 1500);
+  }
+}
+
+// Загрузка списка пользователей
+async function loadUsersList() {
+  const btn = document.getElementById('loadUsersBtn');
+  const container = document.getElementById('usersListContainer');
+  
+  setButtonLoading(btn, true);
+  container.innerHTML = `<div style="text-align: center; padding: 20px; color: #6b7280;">⌛ Загрузка пользователей...</div>`;
+  
+  try {
+    const res = await fetch(`${scriptURL}?type=getUsersList`);
+    const data = await res.json();
+    
+    if (data.success && data.users) {
+      displayUsersList(data.users);
+      setButtonSuccess(btn, 1500);
+    } else {
+      container.innerHTML = `<div style="color: #dc2626; padding: 16px; background: #fef2f2; border-radius: 8px;">❌ ${data.message || 'Ошибка загрузки списка пользователей'}</div>`;
+    }
+    
+  } catch (err) {
+    console.error('Ошибка загрузки пользователей:', err);
+    container.innerHTML = `<div style="color: #dc2626; padding: 16px; background: #fef2f2; border-radius: 8px;">❌ Ошибка: ${err.message}</div>`;
+  } finally {
+    setTimeout(() => setButtonLoading(btn, false), 1500);
+  }
+}
+
+// Отображение списка пользователей
+function displayUsersList(users) {
+  const container = document.getElementById('usersListContainer');
+  
+  if (!users || users.length === 0) {
+    container.innerHTML = `<div style="text-align: center; padding: 20px; color: #6b7280;">👥 Пользователи не найдены</div>`;
+    return;
+  }
+  
+  let html = `
+    <div class="table-scroll">
+      <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
+        <thead style="background: #f8fafc;">
+          <tr>
+            <th style="padding: 12px 8px; border: 1px solid #e5e7eb; text-align: left;">Имя пользователя</th>
+            <th style="padding: 12px 8px; border: 1px solid #e5e7eb; text-align: center;">Роль</th>
+            <th style="padding: 12px 8px; border: 1px solid #e5e7eb; text-align: center;">Статус</th>
+            <th style="padding: 12px 8px; border: 1px solid #e5e7eb; text-align: center;">Оклад (₽)</th>
+            <th style="padding: 12px 8px; border: 1px solid #e5e7eb; text-align: center;">Действия</th>
+          </tr>
+        </thead>
+        <tbody>
+  `;
+  
+  users.forEach((user, index) => {
+    const roleColor = user.role === 'admin' ? '#7c3aed' : '#059669';
+    const roleIcon = user.role === 'admin' ? '👑' : '👤';
+    const statusColor = user.status === 'Штат' ? '#059669' : '#3b82f6';
+    const salary = user.salary && user.salary > 0 ? `${user.salary} ₽` : '-';
+    
+    html += `
+      <tr style="background: ${index % 2 === 0 ? '#ffffff' : '#f9fafb'};">
+        <td style="padding: 8px; border: 1px solid #e5e7eb; font-weight: 500;">${user.name}</td>
+        <td style="padding: 8px; border: 1px solid #e5e7eb; text-align: center;">
+          <span style="color: ${roleColor}; font-weight: 500;">${roleIcon} ${user.role}</span>
+        </td>
+        <td style="padding: 8px; border: 1px solid #e5e7eb; text-align: center;">
+          <span style="color: ${statusColor};">${user.status}</span>
+        </td>
+        <td style="padding: 8px; border: 1px solid #e5e7eb; text-align: center;">${salary}</td>
+        <td style="padding: 8px; border: 1px solid #e5e7eb; text-align: center;">
+          <button onclick="deleteUser('${user.name}')" class="admin-btn danger" style="padding: 4px 8px; font-size: 12px;">
+            🗑️ Удалить
+          </button>
+        </td>
+      </tr>
+    `;
+  });
+  
+  html += `
+        </tbody>
+      </table>
+    </div>
+  `;
+  
+  container.innerHTML = html;
+}
+
+// Удаление пользователя
+async function deleteUser(userName) {
+  if (!confirm(`Вы уверены, что хотите удалить пользователя "${userName}"?\n\nЭто действие нельзя отменить!`)) {
+    return;
+  }
+  
+  try {
+    const res = await fetch(`${scriptURL}?type=deleteUser&name=${encodeURIComponent(userName)}`);
+    const data = await res.json();
+    
+    if (data.success) {
+      alert(`✅ ${data.message}`);
+      // Обновляем список пользователей
+      loadUsersList();
+    } else {
+      alert(`❌ ${data.message}`);
+    }
+    
+  } catch (err) {
+    console.error('Ошибка удаления пользователя:', err);
+    alert(`❌ Ошибка: ${err.message}`);
+  }
 }
 
 
@@ -4005,7 +4446,7 @@ function displayOperationAnalysis(analysis) {
   const mediumOps = analysis.filter(op => op.avgEfficiency >= 80 && op.avgEfficiency < 90).length;
   const goodOps = analysis.filter(op => op.avgEfficiency >= 90 && op.avgEfficiency < 110).length;
   const highOps = analysis.filter(op => op.avgEfficiency >= 110).length;
-
+  
   let html = `
     <div style="margin-bottom: 20px;">
       <h4 style="margin: 0 0 16px 0; color: #1f2937;">📊 Анализ эффективности операций</h4>
@@ -4189,6 +4630,7 @@ async function generateNormRecommendations() {
   
   const startDate = document.getElementById("analyticsStartDate").value;
   const endDate = document.getElementById("analyticsEndDate").value;
+  const employeeStatus = document.getElementById("employeeStatusFilter").value;
   
   if (!startDate || !endDate) {
     container.innerHTML = `<div style="color: #dc2626; padding: 16px; background: #fef2f2; border-radius: 8px;">⚠️ Укажите период для анализа</div>`;
@@ -4199,14 +4641,19 @@ async function generateNormRecommendations() {
   container.innerHTML = `<div style="text-align: center; padding: 20px;">⌛ Генерация рекомендаций по нормам...</div>`;
   
   try {
-    const res = await fetch(`${scriptURL}?type=operationEfficiencyAnalysis&start=${startDate}&end=${endDate}`);
+    let url = `${scriptURL}?type=operationEfficiencyAnalysis&start=${startDate}&end=${endDate}`;
+    if (employeeStatus) {
+      url += `&employeeStatus=${encodeURIComponent(employeeStatus)}`;
+    }
+    
+    const res = await fetch(url);
     const data = await res.json();
     
     if (!data.success) {
       throw new Error(data.message || 'Ошибка получения данных');
     }
     
-    displayNormRecommendations(data.analysis);
+    displayNormRecommendations(data.analysis, employeeStatus);
     setButtonSuccess(btn, 1500);
     
   } catch (err) {
@@ -4218,11 +4665,12 @@ async function generateNormRecommendations() {
 }
 
 // Отображение рекомендаций по корректировке норм
-function displayNormRecommendations(analysis) {
+function displayNormRecommendations(analysis, employeeStatus) {
   const container = document.getElementById("analyticsResults");
   
   if (!analysis || !analysis.length) {
-    container.innerHTML = `<div style="text-align: center; padding: 20px; color: #6b7280;">📊 Нет данных для анализа в указанном периоде</div>`;
+    const statusText = employeeStatus ? ` (${employeeStatus})` : '';
+    container.innerHTML = `<div style="text-align: center; padding: 20px; color: #6b7280;">📊 Нет данных для анализа в указанном периоде${statusText}</div>`;
     return;
   }
   
@@ -4232,9 +4680,11 @@ function displayNormRecommendations(analysis) {
   const medium = analysis.filter(op => op.avgEfficiency >= 80 && op.avgEfficiency < 90);
   const low = analysis.filter(op => op.avgEfficiency >= 110);
   
+  const statusText = employeeStatus ? ` (${employeeStatus})` : '';
+  
   let html = `
     <div style="margin-bottom: 20px; padding: 16px; background: #f8fafc; border-radius: 8px; border-left: 4px solid #7c3aed;">
-      <h4 style="margin: 0 0 8px 0; color: #5b21b6;">💡 Практические рекомендации по корректировке норм</h4>
+      <h4 style="margin: 0 0 8px 0; color: #5b21b6;">💡 Практические рекомендации по корректировке норм${statusText}</h4>
       <p style="margin: 0; color: #64748b; font-size: 14px;">
         Анализ показывает конкретные действия для повышения мотивации сотрудников
       </p>
@@ -4771,7 +5221,7 @@ async function checkUserStructure() {
         screen.style.transition = "opacity 0.5s ease";
         setTimeout(() => screen.remove(), 500); // Удаление после анимации
       }
-    }, 1000); // ЗАДЕРЖКА 1 секунда
+    }, 3000); // ЗАДЕРЖКА 3 секунды (+2 секунды по запросу)
   });
 
   // Обновляем анимации при переключении вкладок
@@ -4917,7 +5367,7 @@ async function checkUserStructure() {
   let pullDistance = 0;
   const maxPullDistance = 80;
 
-  // Инициализация мобильных функций
+  // Инициализация мобильных функций (свайп-навигация отключена)
   function initMobileFeatures() {
     if (isMobileDevice()) {
       document.body.addEventListener('touchstart', handleTouchStart, { passive: false });
@@ -4995,13 +5445,13 @@ async function checkUserStructure() {
         updatePullToRefresh();
       }
       
-      // Горизонтальные свайпы для навигации
-      if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 30) {
-        if (!isSwipping) {
-          isSwipping = true;
-          showSwipeIndicator(deltaX > 0 ? 'right' : 'left');
-        }
-      }
+      // Горизонтальные свайпы отключены - только ручная навигация
+      // if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 30) {
+      //   if (!isSwipping) {
+      //     isSwipping = true;
+      //     showSwipeIndicator(deltaX > 0 ? 'right' : 'left');
+      //   }
+      // }
     }
   }
 
@@ -5017,17 +5467,17 @@ async function checkUserStructure() {
       resetPullToRefresh();
     }
     
-    // Свайп навигация
-    if (isSwipping && Math.abs(deltaX) > 100) {
-      if (deltaX > 0) {
-        // Свайп вправо - предыдущая вкладка
-        navigateTab(-1);
-      } else {
-        // Свайп влево - следующая вкладка
-        navigateTab(1);
-      }
-      hapticFeedback('medium');
-    }
+    // Свайп навигация отключена - только ручной переход через кнопки
+    // if (isSwipping && Math.abs(deltaX) > 100) {
+    //   if (deltaX > 0) {
+    //     // Свайп вправо - предыдущая вкладка
+    //     navigateTab(-1);
+    //   } else {
+    //     // Свайп влево - следующая вкладка
+    //     navigateTab(1);
+    //   }
+    //   hapticFeedback('medium');
+    // }
     
     hideSwipeIndicators();
     isSwipping = false;
@@ -5073,42 +5523,44 @@ async function checkUserStructure() {
     }
   }
 
-  // Показать индикатор свайпа
+  // Показать индикатор свайпа (отключено)
   function showSwipeIndicator(direction) {
-    const indicator = document.getElementById(`swipe${direction === 'left' ? 'Left' : 'Right'}`);
-    if (indicator) {
-      indicator.classList.add('show');
-    }
+    // Индикаторы свайпа отключены - только ручная навигация
+    // const indicator = document.getElementById(`swipe${direction === 'left' ? 'Left' : 'Right'}`);
+    // if (indicator) {
+    //   indicator.classList.add('show');
+    // }
   }
 
-  // Скрыть индикаторы свайпа
+  // Скрыть индикаторы свайпа (отключено)
   function hideSwipeIndicators() {
-    document.getElementById('swipeLeft').classList.remove('show');
-    document.getElementById('swipeRight').classList.remove('show');
+    // Индикаторы свайпа отключены
+    // document.getElementById('swipeLeft').classList.remove('show');
+    // document.getElementById('swipeRight').classList.remove('show');
   }
 
-  // Навигация по вкладкам
-  function navigateTab(direction) {
-    const tabs = ['profile', 'app', 'stats', 'rates', 'mySalary'];
-    const currentTab = getCurrentTab();
-    const currentIndex = tabs.indexOf(currentTab);
-    
-    if (currentIndex !== -1) {
-      const newIndex = (currentIndex + direction + tabs.length) % tabs.length;
-      switchTab(tabs[newIndex]);
-    }
-  }
+  // Навигация по вкладкам (отключена - только ручное переключение через кнопки)
+  // function navigateTab(direction) {
+  //   const tabs = ['profile', 'app', 'stats', 'rates', 'mySalary'];
+  //   const currentTab = getCurrentTab();
+  //   const currentIndex = tabs.indexOf(currentTab);
+  //   
+  //   if (currentIndex !== -1) {
+  //     const newIndex = (currentIndex + direction + tabs.length) % tabs.length;
+  //     switchTab(tabs[newIndex]);
+  //   }
+  // }
 
-  // Получить текущую вкладку
-  function getCurrentTab() {
-    const containers = ['profileContainer', 'appContainer', 'statsContainer', 'ratesContainer', 'mySalaryContainer'];
-    for (const container of containers) {
-      if (document.getElementById(container).style.display !== 'none') {
-        return container.replace('Container', '');
-      }
-    }
-    return 'profile';
-  }
+  // Получить текущую вкладку (не используется для свайпов)
+  // function getCurrentTab() {
+  //   const containers = ['profileContainer', 'appContainer', 'statsContainer', 'ratesContainer', 'mySalaryContainer'];
+  //   for (const container of containers) {
+  //     if (document.getElementById(container).style.display !== 'none') {
+  //       return container.replace('Container', '');
+  //     }
+  //   }
+  //   return 'profile';
+  // }
 
   // Оптимизация производительности
   function optimizePerformance() {
